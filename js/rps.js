@@ -19,14 +19,6 @@ $(() => {
     let cl = (m) => {console.log(m);}
 
   let auth = {
-    // c: "",
-    // counter: () => {
-    //     db1.on("value", (snap) => {
-    //         auth.c = snap.val().counter;
-    //         //cl("THIS IS AUTH C : " + auth.c);
-    //         // cl("THIS IS SNAP VAL COUNTER : " + snap.val().counter);
-    //     });
-    // },
     signout: () => {
         $(".sign-out").on("click", "button", () => {
             fba.signOut().then(() => {
@@ -135,14 +127,18 @@ $(() => {
                 name: players.current.un,
                 playing: true,
             });
-            game.playersReady();
         }
         else{
             spec = (sCounter - 2);
             dbg.update({
                 spectators: spec,
             });
+            db.ref("/game/activePlayers/" + players.current.uid).update({
+                name: players.current.un,
+                playing: false,
+            });
         }
+        game.playersReady();
     },
 } 
     let game = {
@@ -150,40 +146,41 @@ $(() => {
             let activeP;
             db.ref("game/activePlayers/" + players.current.uid).on("value", (snap) => {
                 activeP = snap.val().playing;
-                cl("THIS IS ACTIVE PLAYERS PLAYING : " + activeP);
             });
             dbg.on("value", (s) => {
                 //cl("THIS IS THE SNAP VAL OF DBG IN THE PLAYER READY: " + s.val().activePlayers.name);
-                if(s.val().players == 2){
+                if(s.val().players == 2 && activeP == true){
                     $(".container").css({
                         "opacity": "1",
                         "pointer-events": "auto",
                     });
-                    game.message(players.current.un + ", Your Game is Starting!");
+                    game.message("Your Game is Starting!");
                     $(".waiting").fadeOut(1000);
                 }
-                else if (s.val().players == 1){
+                else if (s.val().players == 1 && activeP == true){
                     $(".container").css({
                         "opacity": ".5",
                         "pointer-events": "none",
                     });
                     game.message("Hello " + players.current.un + ", Waiting for a challenger to join... ");
                 }
-                // else if(s.val().spectators > 0 && activeP != true){
-                //     $(".selections-container, .results, .p2-selection").css({
-                //         "opacity": ".5",
-                //         "pointer-events": "none",
-                //     });
-                //     $(".chat, .change-name, .sign-out").css({
-                //         "opacity": "1",
-                //         "pointer-events": "auto",
-                //     });
+                else if(s.val().spectators > 0 && activeP != true){
+                    $(".container").css("opacity", "1");
+                    $(".chat, .change-name, .sign-out").css({
+                        "opacity": "1",
+                        "pointer-events": "auto",
+                    });
+                    $(".selections-container, .results, .p2-selection").css({
+                        "opacity": ".5",
+                        "pointer-events": "none",
+                    });
+           
                 
-                //     game.message("Hello " + players.current.un + ", There's a game in progress...");
-                //     setTimeout(() => {
-                //         $(".waiting").fadeOut(1000);
-                //     }, 3000);
-                // }
+                    game.message("Hello " + players.current.un + ", There's a game in progress...");
+                    setTimeout(() => {
+                        $(".waiting").fadeOut(1000);
+                    }, 3000);
+                }
                 else{cl("Something is Wrong");}
             });
         },

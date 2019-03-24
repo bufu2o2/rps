@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock Paper Scissor!!</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Fontdiner+Swanky" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+</head>
+<body>
+    <header>RPS RUMBLE</header>
+    <div class = "login"> 
+        <div class = "login-p">
+            <div class = "login-title">
+                Player 1
+                <input id = "username" placeholder="Username">
+                <button id = "login-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class = "waiting"></div>
+    <div class = "container">
+        <div class = "change-name"><button>Change Username</button></div>
+        <div class = "sign-out"><button>Sign Out</button></div>
+        <div class = "selections-container">
+            <div class = "selections rock"><img class = "selectionImg" id = "r" src = "img/r.png"></div>
+            <div class = "selections paper"><img class = "selectionImg" id = "p" src = "img/p.png"></div>
+            <div class = "selections scissor"><img class = "selectionImg" id = "s" src = "img/s.png"></div>
+        </div>
+        <div class = "results">
+            <div class = "res win">
+                <div class = "counter-title">W</div>
+                <div class = "win-counter">222222</div>
+            </div>
+            <div class = "res lose">
+                <div class = "counter-title">L</div>
+                <div class = "lose-counter">123</div>
+            </div>
+            <div class = "res tie">
+                <div class = "counter-title">T</div>
+                <div class = "tie-counter">3</div>
+            </div>
+        </div>
+        <div class = "p2-selection">
+            <div id = "p2C">Player 2 Selection</div>
+            <div id = "p2S">Rock</div>
+    </div>
+        <div class = "chat">
+            <div class = "chat-title"><span>$h!t Talk</span></div>
+            <div class = "chat-display"></div>
+            <input class = "chat-input" placeholder="       send messages here"></input>
+            <button class = "chat-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="js/rps.js"></script>
+
+</body>
+</html>

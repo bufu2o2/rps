@@ -48,9 +48,6 @@ $(() => {
                 players.current.un = user.displayName;
                 cl("THIS IS THE UID: " + players.current.uid);
                 cl("THIS IS THE DISPLAY NAME: " + players.current.un);
-                db.ref("/game/activePlayers/" + user.uid).update({
-                    name: players.current.un,
-                });
             } else {
                 //no user signed in
                 uid = null;
@@ -135,9 +132,10 @@ $(() => {
                 players: sCounter,
             });
             db.ref("/game/activePlayers/" + players.current.uid).update({
+                name: players.current.un,
                 playing: true,
             });
-            
+            game.playersReady();
         }
         else{
             spec = (sCounter - 2);
@@ -171,21 +169,21 @@ $(() => {
                     });
                     game.message("Hello " + players.current.un + ", Waiting for a challenger to join... ");
                 }
-                else if(s.val().spectators > 0 && activeP != true){
-                    $(".selections-container, .results, .p2-selection").css({
-                        "opacity": ".5",
-                        "pointer-events": "none",
-                    });
-                    $(".chat, .change-name, .sign-out").css({
-                        "opacity": "1",
-                        "pointer-events": "auto",
-                    });
+                // else if(s.val().spectators > 0 && activeP != true){
+                //     $(".selections-container, .results, .p2-selection").css({
+                //         "opacity": ".5",
+                //         "pointer-events": "none",
+                //     });
+                //     $(".chat, .change-name, .sign-out").css({
+                //         "opacity": "1",
+                //         "pointer-events": "auto",
+                //     });
                 
-                    game.message("Hello " + players.current.un + ", There's a game in progress...");
-                    setTimeout(() => {
-                        $(".waiting").fadeOut(1000);
-                    }, 3000);
-                }
+                //     game.message("Hello " + players.current.un + ", There's a game in progress...");
+                //     setTimeout(() => {
+                //         $(".waiting").fadeOut(1000);
+                //     }, 3000);
+                // }
                 else{cl("Something is Wrong");}
             });
         },
@@ -226,9 +224,9 @@ $(() => {
     auth.login();
     auth.changeUsername();
     auth.signout();
-    setTimeout(() => {
-        game.playersReady();    
-    }, 2000);
+    // setTimeout(() => {
+    //     game.playersReady();    
+    // }, 2000);
     
 
 

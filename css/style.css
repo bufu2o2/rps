@@ -56,7 +56,7 @@ body{
 .login-title button:hover{
     background-color: rgba(0, 190, 57, 0.8);
 }
-.waiting{
+.waiting, .loading{
     position: absolute;
     display: none;
     place-content: center;
@@ -72,6 +72,10 @@ body{
     padding: 30px;
     border-radius: 40px 5px 40px 5px;
 }
+.loading{
+    z-index: 120;
+    display: grid;
+}
 .container{
     position: relative;
     display: grid;
@@ -84,7 +88,7 @@ body{
     width: 800px;
     height: 400px;
     opacity: .5;
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 .change-name{
     position: absolute;
@@ -234,4 +238,7 @@ header{
 }
 .chat-btn:active, .change-name button:active, .sign-out button:active{
     border: 2px rgba(144, 144, 144, 0.5) inset;
+}
+.chat-display{
+    overflow-y: scroll;
 }
